@@ -1,7 +1,29 @@
-//Variables
+//Selectores
 const form = document.querySelector('#form');
 const input = document.querySelector('#input');
 const listGroup = document.querySelector('.list-group');
+
+//Modelo
+const tareas = [
+    {
+        text: "Elemento 1"
+    },
+    {
+        text: "Elemento 2"
+    },
+    {
+        text: "Elemento 3"
+    },
+]
+
+tareas.forEach(tarea=>{
+    let el = document.createElement('li');
+    el.innerText = tarea.text;
+    el.className = 'list-group-item';
+    listGroup.appendChild(el)
+    console.log(el);
+})
+
 
 //Funciones
 const revision = (e) => {
