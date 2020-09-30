@@ -7,14 +7,12 @@ const listGroup = document.querySelector('.list-group');
 const revision = (e) => {
     e.preventDefault();
     let tarea = input.value;
-    let respuesta;
-    if (tarea != undefined) {
+    if (tarea != '') {
         respuesta = true;
         crearTarea(tarea);
     } else {
-        respuesta = false;
+        alert('Debe llenar el campo');
     }
-    console.log(respuesta);
 }
 
 const crearTarea = (tarea) => {
@@ -29,28 +27,28 @@ const setLS = (tarea) => {
     if (localStorage.getItem('tareas') == undefined) {
         let tareas = [];
         tareas.push(tarea);
-        localStorage.setItem('tareas',JSON.stringify(tareas))
-    }else {
-        let tareas = JSON.parse(localStorage.getItem('tareas'));   
+        localStorage.setItem('tareas', JSON.stringify(tareas))
+    } else {
+        let tareas = JSON.parse(localStorage.getItem('tareas'));
         tareas.push(tarea);
-        localStorage.setItem('tareas',JSON.stringify(tareas))
+        localStorage.setItem('tareas', JSON.stringify(tareas))
     }
 }
 
-const getLS=() => {
+const getLS = () => {
     let tareas = JSON.parse(localStorage.getItem('tareas'));
     if (tareas == undefined) {
         true
     } else {
-    tareas.forEach(tarea => {
-        let el = document.createElement('li');
-        el.innerText = tarea;
-        el.className = 'list-group-item';
-        listGroup.appendChild(el)
-        console.log(el);
-    })
+        tareas.forEach(tarea => {
+            let el = document.createElement('li');
+            el.innerText = tarea;
+            el.className = 'list-group-item';
+            listGroup.appendChild(el)
+            console.log(el);
+        })
     }
 }
 //Listeners
 form.addEventListener('submit', revision);
-document.addEventListener('DOMcontentloaded',getLS())
+document.addEventListener('DOMcontentloaded', getLS())
