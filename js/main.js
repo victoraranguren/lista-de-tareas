@@ -42,6 +42,15 @@ const setLS = (tarea) => {
 const getLS = () => {
     let tareas = JSON.parse(localStorage.getItem('tareas'));
     if (tareas == undefined) {
+        tareas = [];
+    } else {
+        tareas = JSON.parse(localStorage.getItem('tareas'))
+    }
+    return tareas;
+}
+const loadLSDOM = () => {
+    let tareas = JSON.parse(localStorage.getItem('tareas'));
+    if (tareas == undefined) {
         true
     } else {
         tareas.forEach(tarea => {
@@ -57,10 +66,14 @@ const getLS = () => {
         })
     }
 }
-const borrarTarea = (e) => {
-    //Del DOM
-    let tarea = e.target.parentElement.innerText;
-    let tareas = JSON.parse(localStorage.getItem('tareas'));
+const deleteDOM= (e) => {
+    if (e.target.className == 'boton-borrar') {
+        e.target.parentElement.remove();
+        borrarTarea(e.target.parentElement.innerText);
+    } 
+}
+const borrarTarea = (tarea) => {
+    let tareas = getLS();
     let tareaBorrar = tarea.substring(0, tarea.length - 1);
 
     tareas.forEach((tarea, index) =>{
@@ -69,8 +82,10 @@ const borrarTarea = (e) => {
         }
    }) ;
 
+   localStorage.setItem('tareas',JSON.stringify(tareas));
+
 };
 //Listeners
 form.addEventListener('submit', revision);
-document.addEventListener('DOMcontentloaded', getLS())
-document.querySelector('.boton-borrar').addEventListener('click', borrarTarea)
+document.addEventListener('DOMcontentloaded', loadLSDOM());
+listGroup.addEventListener('click', deleteDOM)
