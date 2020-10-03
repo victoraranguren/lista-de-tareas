@@ -9,3 +9,10 @@ input[type="submit"]{
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
+.list-group-item{
+    display: flex;
+    justify-content: space-between;
+}
+.list-group-item span{
+    display: inline-block;
+}
